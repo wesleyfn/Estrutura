@@ -10,7 +10,7 @@
     - Determine a complexidade do problema.
 */
 void torre_hanoi(int discos, char orig, char dest, char aux);
-int x = 0;
+
 int main(void)
 {
     int n;
@@ -18,7 +18,6 @@ int main(void)
     printf("Digite a quantidade de discos: ");
     scanf("%d", &n);
     torre_hanoi(n,'A','C','B');
-    printf("%d\n", x);
     return 0;
 }
 
@@ -27,7 +26,6 @@ int main(void)
 */
 void torre_hanoi(int discos, char orig, char dest, char aux) //T(n)
 {
-    x++;
     if(discos == 1)
     {
         printf("Mova disco de %c para %c\n", orig, dest);
@@ -38,13 +36,3 @@ void torre_hanoi(int discos, char orig, char dest, char aux) //T(n)
     printf("Mova disco de %c para %c\n", orig, dest); //1 A C B
     torre_hanoi(discos-1, aux, dest, orig); //1 B C A
 }
-/*
-int mult(int *vetor, int qtd)
-{
-    if (qtd == 0)
-        return 1;
-    return *vetor * mult(vetor+1, --qtd);
-}
-
-T(n) = T(n-1)
-*/
