@@ -7,13 +7,13 @@ int isPalindromo(char *, int);
 
 int main(void)
 {
-    char str[20];
+    char str[50];
 
     printf("Digite uma string: ");
     scanf("%[^\n]", str);
 
     printf("Resultado: ");
-    if (isPalindromo(str, strlen(str)-1))
+    if (isPalindromo(str, strlen(str)-1)) //oi
         printf("é um palindromo!\n");
     else
         printf("não é um palindromo!\n");

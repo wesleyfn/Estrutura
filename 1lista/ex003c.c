@@ -9,7 +9,7 @@ int main(void)
     char str[20];
 
     printf("Digite uma string: ");
-    scanf("%[^\n]", str);
+    scanf("%[^\n]", str); //Recebe uma string até encontrar o enter '\n'
 
     printf("String: %s\n", str);
     printf("Resultado: ");

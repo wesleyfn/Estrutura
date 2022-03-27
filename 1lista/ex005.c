@@ -9,7 +9,7 @@
     - Construir um algoritmo nao recursivo para calcular o elemento n da sequencia, cuja complexidade seja linear com n.
 */
 int recFib(int n);
-int iterFib(int n);
+int iterSequencia(int n);
 
 int main(void)
 {
@@ -19,7 +19,7 @@ int main(void)
     scanf("%d", &n);
 
     printf("> Recursivo: %d\n", recFib(n));
-    printf("> Iterativo: %d\n", iterFib(n));
+    printf("> Iterativo: %d\n", iterSequencia(n));
     return 0;
 }
 
@@ -29,7 +29,9 @@ int main(void)
 */
 int recFib(int n)
 {
-    if (n == 1 || n == 2)
+    if (n == 1)
+        return 0;
+    else if (n == 2)
         return 1;
     return recFib(n-1) + recFib(n-2);
 }
@@ -37,11 +39,13 @@ int recFib(int n)
 /*
     Complexidade do algoritmo = O(n)
 */
-int iterFib(int n)
+int iterSequencia(int n)
 {
-    int anterior = 1, atual = 1, total;
+    int anterior = 0, atual = 1, total;
 
-    if (n == 1 || n == 2)
+    if (n == 1)
+        return 0;
+    else if (n == 2)
         return 1;
 
     for (int i = 2; i < n; i++)

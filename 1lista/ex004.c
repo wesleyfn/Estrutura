@@ -8,21 +8,26 @@
     - Discuta a forma de resolver o problema;
     - Faca uma implementacao em C que permita resolver o problema para qualquer quantidade de discos;
     - Determine a complexidade do problema.
-
 */
-void torre_hanoi(int, char, char, char);
-
+void torre_hanoi(int discos, char orig, char dest, char aux);
+int x = 0;
 int main(void)
 {
-    torre_hanoi(3,'A','C','B');
+    int n;
+
+    printf("Digite a quantidade de discos: ");
+    scanf("%d", &n);
+    torre_hanoi(n,'A','C','B');
+    printf("%d\n", x);
     return 0;
 }
 
 /*
     Complexidade do algoritmo: 0(2^n)
 */
-void torre_hanoi(int discos, char orig, char dest, char aux) //3 A C B
+void torre_hanoi(int discos, char orig, char dest, char aux) //T(n)
 {
+    x++;
     if(discos == 1)
     {
         printf("Mova disco de %c para %c\n", orig, dest);
@@ -33,3 +38,13 @@ void torre_hanoi(int discos, char orig, char dest, char aux) //3 A C B
     printf("Mova disco de %c para %c\n", orig, dest); //1 A C B
     torre_hanoi(discos-1, aux, dest, orig); //1 B C A
 }
+/*
+int mult(int *vetor, int qtd)
+{
+    if (qtd == 0)
+        return 1;
+    return *vetor * mult(vetor+1, --qtd);
+}
+
+T(n) = T(n-1)
+*/

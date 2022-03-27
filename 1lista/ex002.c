@@ -4,9 +4,9 @@
     somente dos operadores (funcoes) sucessor e predecessor. Entao, pede-se para escrever uma funcao 
     recursiva que calcule a soma de dois numeros x e y atraves desses dois operadores.
 */
-int soma(int, int);
-int sucessor(int);
-int predecessor(int);
+int soma(int x, int y);
+int sucessor(int x);
+int predecessor(int x);
 
 int main(void)
 {
