@@ -6,7 +6,7 @@
     - Qual seria a ordem de complexidade dessa mesma funcao implementada sem utilizar recursividade? 
     - O que voce conclui?
 */
-int soma(int);
+int recSoma(int);
 
 int main(void)
 {
@@ -14,7 +14,7 @@ int main(void)
     printf("Digite o valor de n: ");
     scanf("%d", &n);
 
-    printf("Resultado: %d\n", soma(n));
+    printf("Resultado: %d\n", recSoma(n));
 
     return 0;
 }
@@ -23,11 +23,11 @@ int main(void)
     Complexidade do algoritmo = 0(n)
     Conclui-se que a ordem de complexidade seria aproximadamente a mesma sendo iterativa ou recursiva.
 */
-int soma(int n)
+int recSoma(int n)
 {
     if (n == 0)
         return 0;
     else if (n == 1)
         return 1;
-    return n + soma(n-1);
+    return n + recSoma(n-1);
 }

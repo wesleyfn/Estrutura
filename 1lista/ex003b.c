@@ -2,7 +2,9 @@
 /*
     Multiplicacao de dois numeros naturais, atraves de incrementos sucessivos.
 */
-int mult_incremento(int, int, int);
+int multInc(int x, int y);
+int multIncF(int x, int y, int buffer);
+
 int main(void)
 {
     int x, y;
@@ -13,19 +15,24 @@ int main(void)
     printf("Digite o valor de y: ");
     scanf("%d", &y);
 
-    printf("Resultado: %d\n", mult_incremento(x, y, x));
+    printf("Resultado: %d\n", multInc(x, y));
     return 0;
 }
 
-int mult_incremento(int x, int y, int buffer)
+
+int multInc(int x, int y) { 
+    return multIncF(x, y, x);
+}
+
+int multIncF(int x, int y, int buffer)
 {
     if (y == 1)
         return x;
     else 
     {
         if (buffer > 0)
-            return mult_incremento(x, y, --buffer) + 1;
+            return multIncF(x, y, --buffer) + 1;
         else
-            return mult_incremento(x, --y, x);
+            return multIncF(x, --y, x);
     }
 }

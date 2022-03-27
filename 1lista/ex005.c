@@ -8,9 +8,9 @@
     - Determinar o numero de chamadas recursivas e a complexidade do algoritmo implementado;
     - Construir um algoritmo nao recursivo para calcular o elemento n da sequencia, cuja complexidade seja linear com n.
 */
-int rec_fib(int n);
-int ite_fib(int n);
-int qtd = 0;
+int recFib(int n);
+int iterFib(int n);
+
 int main(void)
 {
     int n;
@@ -18,9 +18,8 @@ int main(void)
     printf("Digite o valor de n: ");
     scanf("%d", &n);
 
-    printf("> Recursivo: %d\n", rec_fib(n));
-    printf("> Iterativo: %d\n", ite_fib(n));
-    printf(":: %d\n", qtd);
+    printf("> Recursivo: %d\n", recFib(n));
+    printf("> Iterativo: %d\n", iterFib(n));
     return 0;
 }
 
@@ -28,19 +27,17 @@ int main(void)
     Numero de chamadas recursivas = n
     Complexidade do algoritmo = 0(2^n)
 */
-
-int rec_fib(int n)
+int recFib(int n)
 {
-    qtd++;
-    if (n == 1 || n == 2) //0(1)
+    if (n == 1 || n == 2)
         return 1;
-    return rec_fib(n-1) + rec_fib(n-2);
+    return recFib(n-1) + recFib(n-2);
 }
 
 /*
-    Complexidade do algoritmo = 0(n)
+    Complexidade do algoritmo = O(n)
 */
-int ite_fib(int n)
+int iterFib(int n)
 {
     int anterior = 1, atual = 1, total;
 

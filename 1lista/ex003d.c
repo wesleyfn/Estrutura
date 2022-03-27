@@ -8,7 +8,7 @@ int mult(int *, int);
 
 int main(void)
 {
-    int vetor[MAX] = {2, 2, 2, 2, 2};
+    int vetor[MAX] = {2,2,2,2,2};
     printf("Soma: %d\n", soma(vetor, MAX));
     printf("Mult: %d\n", mult(vetor, MAX));
 
