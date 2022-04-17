@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <time.h>
 
-void quickSort(TAluno *vet, int esq, int dir);
+void quickSort(TAluno *lista, int inicio, int fim);
 
-TListAlunos *iniListAlunos(int cap, int eOrd)
+TListAlunos* iniListAlunos(int cap, int eOrd)
 {
     TAluno *lista = malloc(sizeof(TAluno) * (cap + 1));
     TListAlunos *lAlunos = malloc(sizeof(TListAlunos));
@@ -23,7 +23,7 @@ TListAlunos *iniListAlunos(int cap, int eOrd)
     return lAlunos;
 }
 
-TListAlunos *geraListAlunos(int tam, int cap, int eOrd)
+TListAlunos* geraListAlunos(int tam, int cap, int eOrd)
 {
     TListAlunos *lAlunos = iniListAlunos(cap, eOrd);
 
@@ -38,9 +38,9 @@ TListAlunos *geraListAlunos(int tam, int cap, int eOrd)
         aluno.numMatricula += ((rand() % 2) + 1) * 10000;
         // Numero sequencial 1 a 800, ex. 240
         aluno.numMatricula += (rand() % 800) + 1; // 201920240
+
         sprintf(aluno.email, "aluno%d@gmail.com", i);
         sprintf(aluno.nome, "Aluno%d", i);
-        // printf("\n %s",aluno.email);
 
         incAlunoNaLista(aluno, lAlunos);
     }
@@ -76,9 +76,9 @@ int buscaAluno_NOrd(TAluno *lista, int tam, int chave)
 
     while (lista[i].numMatricula != chave)
     {
-        i++; // retorna o tam se nao encontrar ou o indice se achar
+        i++; 
     }
-    return i;
+    return i; //retorna o tam se nao encontrar ou o indice se achar
 }
 int incAluno_NOrd(TAluno aluno, TAluno *lista, int *tam, int cap)
 {
@@ -183,30 +183,35 @@ void ordenaLista(TListAlunos *listaA)
     return;
 }
 
-void quickSort(TAluno *vet, int esq, int dir)
+void quickSort(TAluno *lista, int inicio, int fim)
 {
-    int pivo = esq;
-    int i, ch, j;
-
-    for (i = esq + 1; i <= dir; i++)
+    /*
+        lista[8,5,4,6,2,10,3] pivo=[3], i=0, j=0
+        if(j[8] <= pivo[3])
+    */
+    if (inicio < fim) 
     {
-        j = i;
-        if (vet[j].numMatricula < vet[pivo].numMatricula)
+        int pivo = lista[fim].numMatricula;
+        int i = inicio;
+        int buffer = 0;
+
+        for (int j = inicio; j < fim; j++)
         {
-            ch = vet[j].numMatricula;
-            while (j > pivo)
-            {
-                vet[j].numMatricula = vet[j - 1].numMatricula;
-                j--;
+            if (lista[j].numMatricula <= pivo) {
+                buffer = lista[j].numMatricula;
+                lista[j].numMatricula = lista[i].numMatricula;
+                lista[i].numMatricula = buffer;
+                i++;
             }
-            vet[j].numMatricula = ch;
-            pivo++;
         }
+        buffer = lista[fim].numMatricula;
+        lista[fim].numMatricula = lista[i].numMatricula;
+        lista[i].numMatricula = buffer;
+
+        quickSort(lista, inicio, i - 1);
+        quickSort(lista, i + 1, fim);
     }
-    if (pivo - 1 >= esq)
-        quickSort(vet, esq, pivo - 1);
-    if (pivo + 1 <= dir)
-        quickSort(vet, pivo + 1, dir);
+    return;
 }
 
 void printLista(TListAlunos *lista)
@@ -228,8 +233,8 @@ void diferenListas(TListAlunos *lista1, TListAlunos *lista2, TListAlunos *lista3
 {
     for (int i = 0; i < lista1->tam; i++)
     {
-        if (buscaAluno_NOrd(lista2->lista, lista2->tam,
-                            lista1->lista[i].numMatricula) == lista2->tam)
+        int chave = lista1->lista[i].numMatricula;
+        if (buscaAluno_NOrd(lista2->lista, lista2->tam, chave) == lista2->tam)
         {
             // printf("\nDiferenca: %d",lista1->lista[i].numMatricula);
             incAlunoNaLista(lista1->lista[i], lista3);
@@ -240,8 +245,8 @@ void interListas(TListAlunos *lista1, TListAlunos *lista2, TListAlunos *lista3)
 {
     for (int i = 0; i < lista1->tam; i++)
     {
-        if (buscaAluno_NOrd(lista2->lista, lista2->tam, 
-                            lista1->lista[i].numMatricula) != lista2->tam)
+        int chave = lista1->lista[i].numMatricula;
+        if (buscaAluno_NOrd(lista2->lista, lista2->tam, chave) != lista2->tam)
         {
             // printf("\nIntersecao: %d",lista1->lista[i].numMatricula);
             incAlunoNaLista(lista1->lista[i], lista3);
