@@ -1,16 +1,24 @@
+#include "ferramentas.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
-#include "ferramentas.h"
 
-int main(void)
-{
+int main(void) {
   /* Criar uma listaA não ordenada de tamanho 2*LSIZE
      preenchida de forma aleatória. */
   TListAlunos *listA = geraListAlunos(2 * LSIZE, 2 * LSIZE, FALSE);
   puts("> Lista A:");
   printLista(listA);
-
+	
+/* TESTE FUNCOES DE REMOCAO
+	TAluno aluno;
+	scanf("%d", &aluno.numMatricula);
+	remAlunoDaLista(aluno, listA);
+	printLista(listA);
+	printf("Tamanho de A: %d\n", listA->tam);
+*/
+	
   /* Declarar uma listaB não ordenada de capacidade LSIZE */
   TListAlunos *listB = iniListAlunos(LSIZE, FALSE);
   /*
@@ -20,19 +28,22 @@ int main(void)
     retorna falso. No final mostre os valores
     contabilizados junto com o tamanho da listaB
   */
-  int f = 0, t = 0;
   srand(time(NULL));
-  for (int i = 0; i < listA->tam; i++)
-  {
-    int n = rand() % listA->tam;
-    if (incAlunoNaLista(listA->lista[n], listB) == TRUE)
-      t++;
-    else
+  int f = 0, i = 0;
+  do {
+    int n = rand() % (listA->tam);
+    //printf("\nValor do sorteio: %d", n);
+    if (incAlunoNaLista(listA->lista[n], listB) == TRUE) { // true
+      i++;
+    }
+    else {
       f++;
-  }
+    }
+  } while (i < listB->cap);
+
   puts("\n> Lista B:");
   printLista(listB);
-  printf("TRUE: %d\tFALSE: %d\n", t, f);
+  printf("TRUE: %d\tFALSE: %d\n", i, f);
 
   /* Declarar uma listaC ordenada de capacidade LSIZE */
   TListAlunos *listC = iniListAlunos(LSIZE, TRUE);
@@ -43,18 +54,17 @@ int main(void)
     retorna falso. No final mostre os valores
     contabilizados junto com o tamanho da listaC
   */
-  f = 0; t = 0;
-  for (int i = 0; i < listA->tam; i++)
-  {
-    int n = rand() % listA->tam;
-    if (incAlunoNaLista(listA->lista[n], listC) == TRUE)
-      t++;
-    else
-      f++;
-  }
+	f = i = 0;
+  do {
+    int n = rand() % (listA->tam);
+    if (incAlunoNaLista(listA->lista[n], listC) == TRUE) { // true
+      i++;
+    } 
+  } while (i < listC->cap);
+
   puts("\n> Lista C:");
   printLista(listC);
-  printf("TRUE: %d\tFALSE: %d\n", t, f);
+	printf("TRUE: %d\tFALSE: %d\n", i, f);
 
   int cap = listB->cap + listC->cap;
   TListAlunos *listUniao = iniListAlunos(cap, FALSE);
@@ -94,8 +104,8 @@ int main(void)
     Mostre o tamanho desta lista.
   */
   cap = (listB->cap > listC->cap) ? listC->cap : listB->cap;
-  /* No pior caso a intersecao sera a menor lista, ou seja a
-  capacidade da resultante sera igual a capacidade da menor lista */
+  /* No pior caso a intersecao sera a menor lista, ou seja a 
+	capacidade da resultante sera igual a capacidade da menor lista */
 
   TListAlunos *listInterBC = iniListAlunos(cap, FALSE);
   interListas(listB, listC, listInterBC);
@@ -109,7 +119,7 @@ int main(void)
   */
 
   /*
-      Transforma a listaA numa lista ordenada.
+     Transforma a listaA numa lista ordenada.
   */
   ordenaLista(listA);
   printf("\n> Lista A ordenada:\n");

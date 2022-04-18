@@ -47,6 +47,7 @@
 *.pdb
 
 # Kernel Module Compile Results
+*.vscode
 *.mod*
 *.cmd
 .tmp_versions/

@@ -3,7 +3,7 @@
 /*
     Verifique se uma palavra eh palindromo.
 */
-int isPalindromo(char *, int);
+int isPalindromo(char *str, int start, int end);
 
 int main(void)
 {
@@ -13,25 +13,19 @@ int main(void)
     scanf("%[^\n]", str);
 
     printf("Resultado: ");
-    if (isPalindromo(str, strlen(str)-1)) //oi
+    if (isPalindromo(str, 0, strlen(str)-1)) //oi
         printf("é um palindromo!\n");
     else
         printf("não é um palindromo!\n");
     return 0;
 }
 
-int isPalindromo(char * str, int end)
+int isPalindromo(char *str, int start, int end) //tennet
 {
-    static int start = 0;
-    if (start == end || ((end - start) == 1 && (str[end] == str[start])))
+    if (start == end || start == (start+end+1)/2)
         return 1;
+    else if (str[start] == str[end]) //str[3] == str[2]
+        return isPalindromo(str, ++start, --end);
     else 
-    {
-        if (str[start] == str[end]) {
-            start++;
-            return isPalindromo(str, --end);
-        }
-        else
-            return 0; 
-    }
+        return 0;
 }
